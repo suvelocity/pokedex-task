@@ -25,13 +25,13 @@ OR
 
 In order to reduce data size and complexity and avoid CORS problems, you are going to build your own internal API.
 
-Your client will communicate with your API, which will communicate with the pokéAPI. You are required to modify the new response to your client. Match it to the provided example (add link).
+Your client will communicate with your API, which will communicate with the pokéAPI. You are required to modify the new response to your client. Match it to the provided example. 
 
 **Required endpoints:**
 
 - Use [axios](https://www.npmjs.com/package/axios) to fetch the pokeAPI
-- Should have a `GET` endpoint `/api/pokemon/:id` to get pokémon details by id
-- Should have a `GET` endpoint `/api/type/:id` to get type details by id
+- Should have a `GET` endpoint `/api/pokemon/:name` to get pokémon details by name
+- Should have a `GET` endpoint `/api/type/:name` to get type details by name
 - Should have a `GET` endpoint `/api/collection` to get all pokémons in your collection
 - Should have a `POST` endpoint `/api/collection/catch` to add a new pokémon to your collection
 - Should have a `DELETE` endpoint `/api/collection/release/:id` to remove a pokémon from your collection
