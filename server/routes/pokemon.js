@@ -15,10 +15,9 @@ pokemon.get("/:name", (req, res) => {
       obj.height = response.data.height;
       obj.weight = response.data.weight;
       let types = response.data.types;
-      let typesName = [];
-      for (let i = 0; i < types.length; i++) {
-        typesName.push(types[i].type.name);
-      }
+      let typesName = types.map((type) => {
+        return type.type.name; //electric
+      });
       obj.types = typesName;
       obj.front = response.data.sprites.front_default;
       obj.back = response.data.sprites.back_default;
