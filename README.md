@@ -70,3 +70,10 @@ Bonus:
 
 - Add pictures to all pokémons in the type list
 - Display your collection
+
+### Submitting:
+
+- Deploy your app to heroku
+- Add a link to the deployment to your repo
+- Submit a link to your github repo to the CRM (each pair submits the **same** link)
+
