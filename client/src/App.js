@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import axios from "axios";
+import "./App.css";
+import PokemonView from "./components/PokemonView";
+import SearchInput from "./components/SearchInput";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { currentPokemon: "", pokemonData: {} };
+    this.updatePokemon = this.updatePokemon.bind(this);
+    this.fetchPokemon = this.fetchPokemon.bind(this);
+  }
+
+  updatePokemon(newPokemonName) {
+    this.setState({ currentPokemon: newPokemonName });
+    this.fetchPokemon(newPokemonName);
+  }
+
+  async fetchPokemon(pokemonName) {
+    if (!pokemonName) return;
+
+    try {
+      const { data } = await axios.get(`/api/pokemon/${pokemonName}`);
+      this.setState({ pokemonData: data });
+    } catch (error) {
+      console.log(error);
+      alert("Error in fetchPokemon");
+    }
+  }
+
+  render() {
+    console.log(this.state);
+    return (
+      <>
+        <h1>Pokedex!</h1>
+        <SearchInput search={this.updatePokemon} />
+        <PokemonView data={this.state.pokemonData} />
+      </>
+    );
+  }
 }
 
-export default App;
+// async function fetchPokemon(pokemonName) {
+//   if (!pokemonName) return;
+
+//   try {
+//     const { data } = await axios.get(`/api/pokemon/${pokemonName}`);
+//     this.setState({ pokemonData: data });
+//   } catch (error) {
+//     console.log(error);
+//     alert("Error in fetchPokemon");
+//   }
+// }
