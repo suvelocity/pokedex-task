@@ -12,7 +12,6 @@ type.get("/:name", (req, res) => {
       const pokemonNames = response.data.pokemon.map((list) => {
         return list.pokemon.name;
       });
-      console.log(pokemonNames);
       res.send(pokemonNames);
     })
     .catch((e) => {

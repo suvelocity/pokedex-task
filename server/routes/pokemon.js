@@ -8,7 +8,6 @@ pokemon.get("/:name", (req, res) => {
   axios
     .get("https://pokeapi.co/api/v2/pokemon/" + name)
     .then((response) => {
-      console.log(response.data.name);
       let obj = {};
       obj.name = response.data.name;
       obj.id = response.data.id;
@@ -16,11 +15,12 @@ pokemon.get("/:name", (req, res) => {
       obj.weight = response.data.weight;
       let types = response.data.types;
       let typesName = types.map((type) => {
-        return type.type.name; //electric
+        return type.type.name;
       });
       obj.types = typesName;
       obj.front = response.data.sprites.front_default;
       obj.back = response.data.sprites.back_default;
+      obj.isCaught = false;
       res.send(obj);
     })
     .catch((error) => {
