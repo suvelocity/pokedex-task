@@ -1,5 +1,5 @@
 
-<h1>Pokedex Task <img src="https://veekun.com/dex/media/pokemon/global-link/7.png" height="50px"/><h1>
+<h1>Pokedex Task <img src="https://veekun.com/dex/media/pokemon/global-link/7.png" height="50px"/></h1>
 
 In this task you will build your own pokédex!
 
