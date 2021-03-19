@@ -8,4 +8,10 @@ collection.get("/", (req, res) => {
 
 });
 
+collection.post("/catch", (req, res)=>{
+  const {body} = req;
+  myCollection.push(body)
+  res.send({success: true})
+})
+
 module.exports = collection;
