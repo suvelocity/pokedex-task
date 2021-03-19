@@ -4,7 +4,8 @@ const collection = Router();
 const myCollection = []
 
 collection.get("/", (req, res) => {
-  res.send("collection route");
+  res.send(myCollection);
+
 });
 
 module.exports = collection;
