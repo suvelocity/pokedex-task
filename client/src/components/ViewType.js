@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/ViewType";
 
 const ViewType = ({ type, search }) => {
   return (
