@@ -1,7 +1,9 @@
 import React from "react";
+import "../styles/ViewPokemon";
 
-const ViewPokemon = ({ data, findType }) => {
+const ViewPokemon = ({ data, findType, catchPokemon, releasePokemon }) => {
   let types = data.types?.map((type) => type);
+
   return (
     <div>
       <ul>
@@ -18,7 +20,12 @@ const ViewPokemon = ({ data, findType }) => {
         </li>
       </ul>
       <img src={data.sprites?.front} />
-      <button>Catch</button>
+      <button
+        onClick={data.isCaught ? releasePokemon(data.name) : catchPokemon()}
+      >
+        {" "}
+        {data.isCaught ? `Release` : `Catch`}
+      </button>
     </div>
   );
 };
