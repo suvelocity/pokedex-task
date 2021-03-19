@@ -7,22 +7,40 @@ async function getPokemon(name) {
     try {
         const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon/${name}`);
         const pokemon = response.data;
+        const pokemonData = {
+            name: pokemon.name,
+            id: pokemon.id,
+            height: pokemon.height,
+            weight: pokemon.weight,
+            types: pokemon.types.map(element => element.type.name),
+            sprites: {
+                front: pokemon.sprites.front_default,
+                back: pokemon.sprites.back_default,
+            }
+        }
+        return pokemonData
     } catch (error) {
         console.log(error.message);
-        throw "not found";
+        throw "pokemon not found";
     }
-    const pokemonData = {
-        name: pokemon.name,
-        id: pokemon.id,
-        height: pokemon.height,
-        weight: pokemon.weight,
-        types: pokemon.types.map(element => element.type.name),
-        sprites: {
-            front: pokemon.sprites.front_default,
-            back: pokemon.sprites.back_default,
-        }
-    }
-    return pokemonData
 };
 
-module.exports = {getPokemon}
+async function getType(type) {
+    try{
+        const response = await axios.get(`${POKEAPI_BASE_URL}/type/${type}`);
+        const typeResponse = response.data;
+        const typeData = {
+            id: typeResponse.id,
+            name: typeResponse.name,
+            pokemons: typeResponse.pokemon.map((element)=> element.pokemon.name),
+        }
+        return typeData
+    }
+    catch (error){
+        console.log(error.message);
+        throw "type not found";
+    }
+    
+}
+
+module.exports = {getPokemon, getType}
