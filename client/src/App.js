@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import Search from "./components/Search";
 import ViewPokemon from "./components/ViewPokemon";
@@ -12,6 +12,7 @@ function App() {
   const [pokemonData, setPokemon] = useState({});
   const [typeData, setType] = useState([]);
   const [collection, setCollection] = useState([]);
+  const [isCaught, setIsCaught] = useState(false);
 
   const onSearchChange = (e) => {
     setSearch(e.target.value);
@@ -36,34 +37,42 @@ function App() {
       console.log("Error: ", error);
     }
   };
-  // const getCollection = async () => {
-  //   try {
-  //     const { data } = await axios.get(`/api/collection`);
-  //     setCollection(data);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log("Error: ", error);
-  //   }
-  // };
 
-  const catchPokemon = async (data) => {
+  const checkIfPokemonIsCaught = async (name) => {
     try {
-      let caught = await axios.post(`/api/collection/catch`, data);
-      if (caught.status === 200) {
-        console.log(data);
-        let newCollection = [...collection];
-        newCollection.push(data);
-        setCollection(newCollection);
-      }
+      let { data } = await axios.get(`/api/collection`);
+      setCollection(data);
+      let flag = false;
+      collection?.forEach((pokemonInfo, i) => {
+        if (pokemonInfo.name === name) {
+          flag = true;
+        }
+      });
+      setIsCaught(flag);
+      return flag;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
+  const catchPokemon = async (caughtPokemon) => {
+    try {
+      let { data } = await axios.post(`/api/collection/catch`, caughtPokemon);
+      console.log("pokemon was caught");
+      setIsCaught(true);
+      setCollection(data);
     } catch (error) {
       console.log("Error: ", error);
     }
   };
+
   const releasePokemon = async (name) => {
     try {
       const { data } = await axios.delete(`/api/collection/release/${name}`);
+      console.log("pokemon was released");
+      setIsCaught(false);
       setCollection(data);
-      // console.log(data);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -75,6 +84,8 @@ function App() {
       <Search value={search} onChange={onSearchChange} search={getPokemon} />
       <ViewPokemon
         data={pokemonData}
+        canCatch={checkIfPokemonIsCaught}
+        flag={isCaught}
         findType={getType}
         catchPokemon={catchPokemon}
         releasePokemon={releasePokemon}

@@ -17,7 +17,9 @@ collection.get("/", async (req, res) => {
 collection.post("/catch", async (req, res) => {
   try {
     const { body } = req;
-
+    pokemonCollection.forEach((pokemon) => {
+      if (pokemon === body) return res.status(418).send();
+    });
     pokemonCollection.push(body);
     res.status(200).send(pokemonCollection);
   } catch (e) {
