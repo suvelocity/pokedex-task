@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/ViewPokemon";
+import "../styles/ViewPokemon.css";
 
 const ViewPokemon = ({ data, findType, catchPokemon, releasePokemon }) => {
   let types = data.types?.map((type) => type);
@@ -7,21 +7,31 @@ const ViewPokemon = ({ data, findType, catchPokemon, releasePokemon }) => {
   return (
     <div>
       <ul>
-        <li className="name">Name: {data.name}</li>
-        <li className="height">Height: {data.height}</li>
-        <li className="weight">Weight: {data.weight}</li>
-        <li className="type">
+        <li className="name" key={data.name}>
+          Name: {data.name}
+        </li>
+        <li className="height" key={data.height}>
+          Height: {data.height}
+        </li>
+        <li className="weight" key={data.weight}>
+          Weight: {data.weight}
+        </li>
+        <li className="type" key="types">
           Type:{" "}
           <ul>
-            {types?.map((type) => (
-              <li onClick={() => findType(type.name)}>{type.name}</li>
+            {types?.map((type, i) => (
+              <li key={i} onClick={() => findType(type.name)}>
+                {type.name}
+              </li>
             ))}
           </ul>
         </li>
       </ul>
       <img src={data.sprites?.front} />
       <button
-        onClick={data.isCaught ? releasePokemon(data.name) : catchPokemon()}
+        onClick={() =>
+          data.isCaught ? releasePokemon(data.name) : catchPokemon(data)
+        }
       >
         {" "}
         {data.isCaught ? `Release` : `Catch`}

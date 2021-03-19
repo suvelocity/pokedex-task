@@ -1,4 +1,4 @@
-const { default: axios } = require("axios");
+// const { default: axios } = require("axios");
 const { Router } = require("express");
 const { POKEAPI_BASE_URL, axios } = require("../utils/pokeAPI");
 

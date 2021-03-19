@@ -1,14 +1,15 @@
 import React from "react";
-import "../styles/Collection";
+import "../styles/Collection.css";
 
 export default function Collection({ collection }) {
+  console.log(collection);
   return (
     <div>
       <h1> Collection</h1>
       <ul className="pokemon-list">
-        {collection.map((pokemon) => (
-          <li>{pokemon.name}</li>
-        ))}
+        {collection?.map((pokemon, i) => {
+          <li key={i}>{pokemon.name}</li>;
+        })}
       </ul>
     </div>
   );

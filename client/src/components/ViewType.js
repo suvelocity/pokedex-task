@@ -1,11 +1,13 @@
 import React from "react";
-import "../styles/ViewType";
+import "../styles/ViewType.css";
 
 const ViewType = ({ type, search }) => {
   return (
     <ul>
-      {type.pokemons?.map((type) => (
-        <li onClick={() => search(type.name)}>{type.name}</li>
+      {type.pokemons?.map((type, i) => (
+        <li onClick={() => search(type.name)} key={i}>
+          {type.name}
+        </li>
       ))}
     </ul>
   );

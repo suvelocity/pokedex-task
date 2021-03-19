@@ -11,7 +11,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [pokemonData, setPokemon] = useState({});
   const [typeData, setType] = useState([]);
-  const [collection, setCollection] = useState({});
+  const [collection, setCollection] = useState([]);
 
   const onSearchChange = (e) => {
     setSearch(e.target.value);
@@ -21,7 +21,7 @@ function App() {
     try {
       const { data } = await axios.get(`/api/pokemon/${pokemonName}`);
       setPokemon(data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log("Error: ", error.massage);
     }
@@ -31,7 +31,7 @@ function App() {
     try {
       const { data } = await axios.get(`/api/type/${typeName}`);
       setType(data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -45,30 +45,25 @@ function App() {
   //     console.log("Error: ", error);
   //   }
   // };
-  const getPokemonId = async (pokemonName) => {
+
+  const catchPokemon = async (data) => {
     try {
-      const { data } = await axios.get(`/api/pokemon/${pokemonName}`);
-      const { id } = await data;
-      return id;
-    } catch (error) {
-      console.log("Error: ", error.massage);
-    }
-  };
-  const catchPokemon = async () => {
-    try {
-      const { data } = await axios.post(`/api/collection/catch`);
-      setCollection(data);
-      console.log(data);
+      let caught = await axios.post(`/api/collection/catch`, data);
+      if (caught.status === 200) {
+        console.log(data);
+        let newCollection = [...collection];
+        newCollection.push(data);
+        setCollection(newCollection);
+      }
     } catch (error) {
       console.log("Error: ", error);
     }
   };
   const releasePokemon = async (name) => {
     try {
-      const id = await getPokemonId(name);
-      const { data } = await axios.delete(`/api/collection/release/${id}`);
+      const { data } = await axios.delete(`/api/collection/release/${name}`);
       setCollection(data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log("Error: ", error);
     }
