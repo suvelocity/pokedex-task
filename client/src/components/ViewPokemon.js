@@ -40,8 +40,8 @@ const ViewPokemon = ({
       />
       <button
         onClick={async () => {
-          (await canCatch(data.name))
-            ? await releasePokemon(data.name)
+          (await canCatch(data))
+            ? await releasePokemon(data)
             : await catchPokemon(data);
         }}
       >
