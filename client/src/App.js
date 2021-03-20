@@ -101,7 +101,11 @@ function App() {
         getCollection={getCollection}
       />
       <ViewType type={typeData} search={getPokemon} />
-      <Collection collection={collection} getCollection={getCollection} />
+      <Collection
+        collection={collection}
+        search={getPokemon}
+        getCollection={getCollection}
+      />
     </div>
   );
 }

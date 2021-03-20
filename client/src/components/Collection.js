@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Collection.css";
 import CollectionItem from "./CollectionItem";
 
-export default function Collection({ collection, getCollection }) {
+export default function Collection({ collection, getCollection, search }) {
   console.log(collection);
   return (
     <>
@@ -11,6 +11,7 @@ export default function Collection({ collection, getCollection }) {
         <CollectionItem
           key={`collectionItem-${i}`}
           pokemonName={itemCollection}
+          search={search}
         />
       ))}
       <button className="get-collection-btn" onClick={getCollection}>

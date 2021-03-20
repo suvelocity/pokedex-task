@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function CollectionItem({ pokemonName }) {
+export default function CollectionItem({ pokemonName, search }) {
   return (
-    <div>
+    <div onClick={() => search(pokemonName.name)}>
       {pokemonName.name}
       <img
         src={pokemonName.sprites?.front}
