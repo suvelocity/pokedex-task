@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/ViewPokemon.css";
 
 const ViewPokemon = ({
@@ -7,7 +7,6 @@ const ViewPokemon = ({
   catchPokemon,
   releasePokemon,
   canCatch,
-  flag,
 }) => {
   let types = data.types?.map((type) => type);
 
@@ -42,12 +41,12 @@ const ViewPokemon = ({
       <button
         onClick={async () => {
           (await canCatch(data.name))
-            ? releasePokemon(data.name)
-            : catchPokemon(data);
+            ? await releasePokemon(data.name)
+            : await catchPokemon(data);
         }}
       >
         {" "}
-        {flag ? `Release` : `Catch`}
+        {data.isCaught ? `Release` : `Catch`}
       </button>
     </div>
   );

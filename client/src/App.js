@@ -18,10 +18,19 @@ function App() {
     setSearch(e.target.value);
   };
   const getPokemon = async (pokemonName) => {
-    // let { data } = await axios.get(`/api/collection`);
-    // setCollection(data);
+    let { data } = await axios.get(`/api/collection`);
+    setCollection(data);
+    // data.forEach((pokemonInfo) => {
+    //   console.log("****", pokemonInfo, "****");
+    //   if (pokemonInfo.name === pokemonName.name) {
+    //     pokemonInfo.isCaught = true;
+    //     return;
+    //   }
+    //   setCollection(data);
+    // });
     try {
       const { data } = await axios.get(`/api/pokemon/${pokemonName}`);
+      console.log("***********", collection);
       collection?.forEach((pokemonInfo) => {
         if (pokemonInfo.name === data.name) {
           data.isCaught = true;
@@ -86,7 +95,11 @@ function App() {
       console.log("Error: ", error);
     }
   };
-
+  const getCollection = () => {
+    axios.get(`/api/collection`).then((res) => {
+      setCollection(res.data);
+    });
+  };
   return (
     <div className="App">
       <h1 className="header">PokeDex</h1>
@@ -98,9 +111,10 @@ function App() {
         findType={getType}
         catchPokemon={catchPokemon}
         releasePokemon={releasePokemon}
+        getCollection={getCollection}
       />
       <ViewType type={typeData} search={getPokemon} />
-      <Collection collection={collection} />
+      <Collection collection={collection} getCollection={getCollection} />
     </div>
   );
 }
