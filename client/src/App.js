@@ -17,10 +17,17 @@ function App() {
   const onSearchChange = (e) => {
     setSearch(e.target.value);
   };
-
   const getPokemon = async (pokemonName) => {
+    // let { data } = await axios.get(`/api/collection`);
+    // setCollection(data);
     try {
       const { data } = await axios.get(`/api/pokemon/${pokemonName}`);
+      collection?.forEach((pokemonInfo) => {
+        if (pokemonInfo.name === data.name) {
+          data.isCaught = true;
+          return;
+        }
+      });
       setPokemon(data);
       // console.log(data);
     } catch (error) {
@@ -43,9 +50,10 @@ function App() {
       let { data } = await axios.get(`/api/collection`);
       setCollection(data);
       let flag = false;
-      collection?.forEach((pokemonInfo, i) => {
+      collection.forEach((pokemonInfo, i) => {
         if (pokemonInfo.name === name) {
           flag = true;
+          data.isCaught = true;
         }
       });
       setIsCaught(flag);
@@ -58,6 +66,7 @@ function App() {
 
   const catchPokemon = async (caughtPokemon) => {
     try {
+      caughtPokemon.isCaught = true;
       let { data } = await axios.post(`/api/collection/catch`, caughtPokemon);
       console.log("pokemon was caught");
       setIsCaught(true);
@@ -85,7 +94,7 @@ function App() {
       <ViewPokemon
         data={pokemonData}
         canCatch={checkIfPokemonIsCaught}
-        flag={isCaught}
+        isCaught={isCaught}
         findType={getType}
         catchPokemon={catchPokemon}
         releasePokemon={releasePokemon}
