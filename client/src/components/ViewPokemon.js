@@ -34,7 +34,11 @@ const ViewPokemon = ({
           </ul>
         </li>
       </ul>
-      <img src={data.sprites?.front} />
+      <img
+        src={data.sprites?.front}
+        onMouseOver={(e) => (e.currentTarget.src = data.sprites?.back)}
+        onMouseOut={(e) => (e.currentTarget.src = data.sprites?.front)}
+      />
       <button
         onClick={async () => {
           (await canCatch(data.name))
