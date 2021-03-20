@@ -30,7 +30,7 @@ collection.post("/catch", async (req, res) => {
 //deleting a pokemon out of an array
 collection.delete("/release/:id", async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const index = pokemonCollection.findIndex(
       (pokemon) => pokemon.id === id || pokemon.name === id
     );
