@@ -24,16 +24,6 @@ function App() {
     getCollection();
   };
   const getPokemon = async (pokemonName) => {
-    // let { data } = await axios.get(`/api/collection`);
-    // setCollection(data);
-    // data.forEach((pokemonInfo) => {
-    //   console.log("****", pokemonInfo, "****");
-    //   if (pokemonInfo.name === pokemonName.name) {
-    //     pokemonInfo.isCaught = true;
-    //     return;
-    //   }
-    //   setCollection(data);
-    // });
     try {
       const { data } = await axios.get(`/api/pokemon/${pokemonName}`);
       console.log("***********", collection);
@@ -74,18 +64,6 @@ function App() {
       return false;
     }
   };
-  // const checkIfPokemonIsCaught = async (pokemon) => {
-  //   try {
-  //     let { data } = await axios.get(`/api/collection`);
-  //     data.forEach((pokemonInfo, i) => {
-  //       pokemon.isCaught = pokemonInfo.name === pokemon.name ? true : false;
-  //     });
-  //     return pokemon.isCaught;
-  //   } catch (error) {
-  //     console.log(error);
-  //     return false;
-  //   }
-  // };
 
   const catchPokemon = async (caughtPokemon) => {
     try {
